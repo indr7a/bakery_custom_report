@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<templates id="template" xml:space="preserve">
+    <t t-name="bakery_custom_report.ReceiptHeader" t-inherit="point_of_sale.ReceiptHeader" t-inherit-mode="extension">
+        <xpath expr="//img[hasclass('pos-receipt-logo')]" position="replace" />
+        <xpath expr="//h1[hasclass('tracking-number')]" position="replace" />
+        <xpath expr="//div[contains(@class, 'd-flex') and contains(@class, 'flex-column') and contains(@class, 'align-items-center')]" position="replace">
+        <div style="text-align:center; font-weight:bold; margin-bottom:0; padding-bottom:0;">
+            <p style="margin-bottom:0; padding-bottom:0;">Jln. Dr Supomo No.11 Solo</p>
+        </div>
+        <div style="margin-top:0; padding-top:0;">------------------------------------------------------------------</div>
+            <table style="border: none; border-collapse: collapse; width: 100%;">
+                <tr style="border: none; border-collapse: collapse;">
+                    <td style="text-align: left; border: none; border-collapse: collapse; width: 50%;">
+                        Date: <t t-esc="(new Date()).toLocaleDateString()"/>
+                    </td>
+                    <td style="text-align: right;border: none; border-collapse: collapse; width: 50%;">
+                        Table No: <t t-esc="props.data.name"/>
+                    </td>
+                </tr>
+                <tr style="border: none; border-collapse: collapse;">
+                    <td style="text-align: left; border: none; border-collapse: collapse; width: 50%;">
+                        Time: <t t-esc="(new Date()).toLocaleTimeString([], {hour: '2-digit', minute: '2-digit'})"/>
+                    </td>
+                    <td style="text-align: right;border: none; border-collapse: collapse; width: 50%;">
+                        Ticket No: <t t-esc="props.data.trackingNumber"/>
+                    </td>
+                </tr>
+            </table>
+            <div style="margin-bottom: 0; padding-bottom: 0; line-height: 1; display: inline-block;">------------------------------------------------------------------</div>
+        </xpath>
+    </t>
+</templates>

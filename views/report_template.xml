@@ -1,0 +1,32 @@
+<odoo>
+  <template id="custom_pos_receipt_template" inherit_id="pos_bakery_report.pos_bakery_report_template">
+    <xpath expr="//t[@t-slot='body']" position="replace">
+      <div class="page">
+        <t t-if="doc_ids">
+          <h3 style="text-align:center;">Jln. Dr Supomo No.11 Solo</h3>
+          <p>Date: <t t-esc="doc.date_order.strftime('%d/%m/%Y')"/></p>
+          <p>Time: <t t-esc="doc.date_order.strftime('%H:%M:%S')"/></p>
+          <p>Ticket No: <t t-esc="doc.name"/></p>
+          <hr/>
+          <t t-foreach="docs" t-as="line">
+            <p>
+              - <t t-esc="line.qty"/> <t t-esc="line.product_id.display_name"/>
+              <span style="float:right;"><t t-esc="line.price_subtotal_incl"/></span>
+            </p>
+          </t>
+          <hr/>
+          <p style="text-align:right; font-weight:bold;">
+            Total: <t t-esc="doc.amount_total"/>
+          </p>
+          <br/>
+          <h4 style="text-align:center;">TERIMA KASIH</h4>
+          <p style="text-align:center;">IG: @senyawasolobakery</p>
+          <p style="text-align:center;">FB: SenyawaBakery</p>
+        </t>
+        <t t-else="">
+          <p style="text-align:center;">No data available</p>
+        </t>
+      </div>
+    </xpath>
+  </template>
+</odoo>

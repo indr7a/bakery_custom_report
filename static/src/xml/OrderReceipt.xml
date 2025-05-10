@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<templates id="template" xml:space="preserve">
+    <t t-name="bakery_custom_report.OrderReceipt" t-inherit="point_of_sale.OrderReceipt" t-inherit-mode="primary">
+        <xpath expr="//div[hasclass('pos-receipt-amount')]" position="replace" />
+        <xpath expr="//div[hasclass('pos-receipt-taxes')]" position="replace" />
+        <xpath expr="//div[hasclass('paymentlines')]" position="replace" />
+        <xpath expr="//div[hasclass('pos-receipt-amount')]" position="replace" />
+        <xpath expr="//t[@t-if='props.data.total_discount']" position="replace" />
+        <xpath expr="//div[@t-if='props.data.pos_qr_code']" position="replace" />
+        <xpath expr="//t[@t-if='props.data.shippingDate']" position="replace" />
+        <xpath expr="//div[hasclass('pos-receipt-order-data')]" position="replace" />
+        <xpath expr="//div[@t-esc='props.data.name']/.." position="replace" />
+        <xpath expr="//div[hasclass('text-center')]" position="replace"/>
+        <xpath expr="//OrderWidget" position="replace">
+            <table style="border: none; border-collapse: collapse; width: 100%; margin-top: 0; padding-top: 0;">
+                <t t-foreach="props.data.orderlines" t-as="line" t-key="line_index">
+                    <tr style="border: none; border-collapse: collapse">
+                        <td style="text-align:left;border: none; border-collapse: collapse; width: 50%;">
+                            - <t t-esc="line.qty" /> <t t-esc="line.productName" />
+                        </td>
+                        <td style="text-align:right;border: none; border-collapse: collapse; width: 50%;">
+                            <t t-esc="line.price" />
+                        </td>
+                    </tr>
+                </t>
+            </table>
+            <div style="margin:0; padding:0; line-height:1;">
+                ------------------------------------------------------------------<br/>
+                ------------------------------------------------------------------
+            </div>
+            <table width="100%">
+                <tr>
+                    <td style="text-align: left;font-weight: bold;font-size: 14px; width: 50%;">
+                        TOTAL
+                    </td>
+                    <td style="text-align: right;font-weight: bold;font-size: 14px; width: 50%;">
+                        <t t-set="taxTotals" t-value="props.data.taxTotals" />
+                        <t t-esc="props.formatCurrency(taxTotals.order_sign * taxTotals.order_total)" class="pos-receipt-right-align" />
+                    </td>
+                </tr>
+            </table>
+            <div style="margin:0; padding:0; line-height:1;">
+                ------------------------------------------------------------------<br/>
+                ------------------------------------------------------------------
+            </div>
+            <div style="text-align: center;font-weight: bold;font-size: 11px;">
+                TERIMA KASIH
+            </div>
+            <div width="50%" style="float: left;text-align: left;font-weight: bold;font-size: 11px;">
+                IG: @senyawasolobakery
+            </div>
+            <div width="50%" style="float: right;text-align: right;font-weight: bold;font-size: 11px;">
+                FB: SenyawaBakery
+            </div>
+            </xpath>
+            </t>
+            
+            <t t-name="pos_receipt_customisation.ReceiptScreen" t-inherit="point_of_sale.ReceiptScreen" t-inherit-mode="extension" owl="1">
+                <xpath expr="//OrderReceipt" position="replace">
+                    <CustomOrderReceipt data="pos.orderExportForPrinting(pos.get_order())" formatCurrency="env.utils.formatCurrency" />
+                </xpath>
+            </t>
+</templates>
