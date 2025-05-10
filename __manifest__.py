@@ -7,6 +7,7 @@
     'depends': ['point_of_sale'],
     'assets': {
         'point_of_sale._assets_pos': [
+            # 'bakery_custom_report/static/src/js/deletebr.js',
             'bakery_custom_report/static/src/js/HeaderScreen.js',
             'bakery_custom_report/static/src/js/CustomOrderReceipt.js',
             'bakery_custom_report/static/src/js/ReprintReceiptScreen.js',
